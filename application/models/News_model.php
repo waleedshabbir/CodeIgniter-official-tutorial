@@ -1,7 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: WALEED
- * Date: 28-Oct-16
- * Time: 1:52 AM
- */
+class News_model extends CI_Model {
+
+    public function __construct()
+    {
+        $this->load->database();
+    }
+
+
+
+    public function get_news($slug = FALSE)
+    {
+        if ($slug === FALSE)
+        {
+            $query = $this->db->get('news');
+            return $query->result_array();
+        }
+
+        $query = $this->db->get_where('news', array('slug' => $slug));
+        return $query->row_array();
+    }
+}
